@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <title>LoanApp ~ Home</title>
+
+  <style>
+    .fix-table-height{
+      max-height:200px;
+    }
+  </style>
+</head>
+
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
+
+<nav class="navbar navbar-expand-sm navbar-light" style="background-color: rgb(218, 247, 166);">
+  <a href="#"class="navbar-brand ps-5">Loan</a>
+  <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mobileMenu"
+          aria-controls="toggleMobileMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+  >
+
+    <span class="navbar-toggler-icon"></span>
+
+  </button>
+
+  <div class="collapse navbar-collapse" id="mobileMenu">
+    <ul class="navbar-nav ms-auto text-center">
+      <li>
+        <a class="nav-link px-5" th:href="@{/}">Home</a>
+      </li>
+      <li>
+        <a class="nav-link px-5" th:href="@{/apply}">Apply</a>
+      </li>
+      <li>
+        <a class="nav-link active px-5" th:href="@{/login}">Login</a>
+      </li>
+      <li>
+        <a class="nav-link px-5" th:href="@{/support}">Support</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container min-vw-100" style="background-image: url(img/login.jpg); backdrop-filter: blur(3px); background-size: cover;">
+
+  <div class="container d-flex justify-content-center w-25" style="margin-top: 25%; margin-bottom: 50%; background-color: rgba(255, 255, 255, 0.9);">
+
+
+    <div class="flex-row p-1">
+      <p class="fw-light text-dark text-center">Sign in</p>
+      <label for="email">Email address:</label>
+      <input class="form-control" type="text" name="email=" id="email"/>
+      <label for="password">Password:</label>
+      <input class="form-control" type="password" name="password=" id="password"/>
+      <br>
+      <div class="flex-row text-center pb-4">
+        <button type="submit" class="btn btn-dark text-dark" style="background-color: rgb(218, 247, 166);">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer style="background-color: rgb(218, 247, 166); margin-top: auto">
+  <div class="flex-row pt-3">
+    <p class="text-center">Copyright 2023 - Loan Comapny inc.</p>
+  </div>
+</footer>
+
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://kit.fontawesome.com/865408320e.js" crossorigin="anonymous"></script>
+</html>
