@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,19 +53,31 @@
 
 <div class="container min-vw-100" style="background-image: url(img/login.jpg); backdrop-filter: blur(3px); background-size: cover;">
 
-  <div class="container d-flex justify-content-center w-25" style="margin-top: 25%; margin-bottom: 50%; background-color: rgba(255, 255, 255, 0.9);">
+  <div th:if="${param.error != null}" >
+    <div class="container pt-2">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <p class="text-center">Error: Incorrect username or password</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container d-flex justify-content-center w-50 h-50" style="margin-top: 25%; margin-bottom: 50%; background-color: rgba(255, 255, 255, 0.9);">
+
 
 
     <div class="flex-row p-1">
+      <form method="POST" action="#">
       <p class="fw-light text-dark text-center">Sign in</p>
       <label for="email">Email address:</label>
-      <input class="form-control" type="text" name="email=" id="email"/>
+      <input class="form-control" type="text" name="email" id="email"/>
       <label for="password">Password:</label>
-      <input class="form-control" type="password" name="password=" id="password"/>
+      <input class="form-control" type="password" name="password" id="password"/>
       <br>
       <div class="flex-row text-center pb-4">
         <button type="submit" class="btn btn-dark text-dark" style="background-color: rgb(218, 247, 166);">Login</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
