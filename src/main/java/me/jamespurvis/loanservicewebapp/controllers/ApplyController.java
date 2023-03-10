@@ -23,7 +23,7 @@ public class ApplyController {
     }
 
     @PostMapping("/apply")
-    public String registerNewUser(@ModelAttribute Account account) {
+    public String registerNewUser(@ModelAttribute Account account) throws Exception {
         Optional<Account> accountExists = accountService.findByEmail(account.getEmail());
 
         if (accountExists.isPresent()) {

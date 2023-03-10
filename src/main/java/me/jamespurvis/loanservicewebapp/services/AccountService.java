@@ -18,6 +18,9 @@ public class AccountService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private IdentifierEncryptionService identifierEncryptionService;
+
     public Optional<Account> findById(Long id) {
         return accountRepository.findById(id);
     }
@@ -27,8 +30,9 @@ public class AccountService {
     }
 
 
-    public Account save(Account entity) {
+    public Account save(Account entity) throws Exception {
         entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+        entity.setPersonalIdentifier(identifierEncryptionService.encrypt(entity.getPersonalIdentifier()));
         return accountRepository.save(entity);
     }
 
