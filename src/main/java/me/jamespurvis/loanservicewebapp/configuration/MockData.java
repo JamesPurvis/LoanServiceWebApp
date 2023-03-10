@@ -24,7 +24,8 @@ public class MockData implements CommandLineRunner {
         account1.setPassword("lol123");
         account1.setFirstName("James");
         account1.setLastName("Purvis");
-        account1.setDateOfBirth(new Date("01/01/1993"));
+        account1.setDateOfBirth("01/07/1993");
+        account1.setPersonalIdentifier("1234");
 
         accountService.save(account1);
     }

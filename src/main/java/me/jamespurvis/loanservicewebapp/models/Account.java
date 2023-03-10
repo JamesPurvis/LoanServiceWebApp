@@ -1,10 +1,7 @@
 package me.jamespurvis.loanservicewebapp.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
@@ -29,5 +26,16 @@ public class Account {
 
     private String lastName;
 
-    private Date dateOfBirth;
+    private String dateOfBirth;
+
+    private String state;
+
+    private String city;
+
+    private String streetAddress;
+
+    private String zipCode;
+
+    private String personalIdentifier;
+
 }
