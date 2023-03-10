@@ -32,6 +32,6 @@ public class ApplyController {
 
         accountService.save(account);
 
-        return "account_created";
+        return "redirect:/login?success";
     }
 }

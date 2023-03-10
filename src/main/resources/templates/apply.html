@@ -52,6 +52,17 @@
 </nav>
 
 <div class="container min-vw-100">
+
+
+  <div th:if="${param.email_in_use != null}" >
+    <div class="container pt-2">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <p class="text-center">Error: Bummer! That email is already in use!</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
   <h1 class="text-center pt-3">Apply now</h1>
 
   <div class="container flex-row">
@@ -60,28 +71,34 @@
 
   <div class="container d-flex p-5" style="background-color: rgb(218, 247, 166)">
     <div class="col">
-      <form th:action="@{/apply}" method="POST" th:object="${account}" novalidate>
+      <form id="apply" th:action="@{/apply}" method="POST" th:object="${account}" novalidate>
       <label class="" for="firstName">First Name:</label>
       <input type="text" class="form-control pb-3 " name="firstName" id="firstName" required/>
+        <div class="invalid-feedback">First name is required</div>
 
       <label class="pt-3" for="lastName">Last Name:</label>
       <input type="text" class="form-control pb-3" name="lastName" id="lastName" required/>
+        <div class="invalid-feedback">Last name is required</div>
 
         <label class="pt-3" for="email">Email:</label>
         <input type="text" class="form-control pb-3" name="email" id="email" required/>
+        <div class="invalid-feedback">Email is required</div>
 
         <label class="pt-3" for="dateOfBirth">Date of Birth:</label>
         <input type="date" class="form-control pb-3" name="dateOfBirth" id="dateOfBirth" required/>
-
+        <div class="invalid-feedback">Date of birth is required!</div>
 
         <label class="pt-3" for="Password">Password:</label>
         <input type="password" class="form-control pb-3" name="Password" id="Password" required/>
+        <div class="invalid-feedback">Please enter a valid password!</div>
 
         <label class="pt-3" for="Password2">Confirm Password:</label>
         <input type="password" class="form-control pb-3" name="Password2" id="Password2" required/>
+        <div class="invalid-feedback">Please enter a valid password!</div>
 
       <label class="pt-3" for="streetAddress">Street Address</label>
       <input type="text" class="form-control pb-3" name="streetAddress" id="streetAddress" required/>
+        <div class="invalid-feedback">Address is required</div>
 
       <div class="row align-content-center pt-2 w-100">
 
@@ -145,17 +162,20 @@
         <div class="col-4">
           <label class="pt-3" for="city">City:</label>
           <input type="text" class="form-control pb-3" name="city" id="city" required/>
+          <div class="invalid-feedback">City is required</div>
         </div>
 
 
         <div class="col-4">
       <label class="pt-3" for="zipCode">Zip code:</label>
       <input type="text" class="form-control pb-3" name="zipCode" id="zipCode" required/>
+          <div class="invalid-feedback">Zipcode is required</div>
         </div>
       </div>
 
       <label class="pt-3 text-center" for="personalIdentifier">Last four of SSN:</label>
-      <input class="form-control pb-3 w-25 text-center" type="password" name="personalIdentifier" id="identifier" required/>
+      <input class="form-control pb-3 w-25 text-center" type="password" name="personalIdentifier" id="personalidentifier" required/>
+        <div class="invalid-feedback">SSN is required</div>
 
       <div class="container d-flex pt-3 justify-content-center">
         <button class="btn btn-dark" type="submit">Submit</button>
@@ -181,4 +201,41 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://kit.fontawesome.com/865408320e.js" crossorigin="anonymous"></script>
+
+<script>
+  const form = document.getElementById("apply");
+
+
+  form.addEventListener('submit', e => {
+
+
+
+    const password1 = document.getElementById("Password");
+    const password2 = document.getElementById("Password2");
+
+    let failed = false;
+
+
+
+    if (password1.value != password2.value || password1.value.length == 0 || password2.value.length == 0) {
+      failed = true;
+      password1.setCustomValidity("Invalid field.");
+      password2.setCustomValidity("Invalid field.");
+    }
+
+    if (failed == false && password1.checkValidity() == false) {
+      password1.setCustomValidity("");
+    }
+
+    if (failed == false && password2.checkValidity() == false) {
+      password2.setCustomValidity("");
+    }
+
+    if (!form.checkValidity()) {
+      e.preventDefault();
+    }
+
+    form.classList.add('was-validated')
+  });
+</script>
 </html>

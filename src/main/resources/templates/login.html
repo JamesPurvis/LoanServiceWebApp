@@ -62,6 +62,15 @@
     </div>
   </div>
 
+  <div th:if="${param.success != null}" >
+    <div class="container pt-2">
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <p class="text-center">You may now login using your email and password.</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
   <div class="container d-flex justify-content-center w-50 h-50" style="margin-top: 25%; margin-bottom: 50%; background-color: rgba(255, 255, 255, 0.9);">
 
 
