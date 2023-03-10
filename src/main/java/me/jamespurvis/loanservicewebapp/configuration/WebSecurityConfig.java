@@ -29,7 +29,8 @@ public class WebSecurityConfig {
             "/login/*",
             "/login",
             "/apply/*",
-            "/apply/"
+            "/apply",
+            "/apply*"
 
     };
 
