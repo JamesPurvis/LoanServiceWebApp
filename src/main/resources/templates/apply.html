@@ -204,6 +204,21 @@
 
 <script>
   const form = document.getElementById("apply");
+  const windowInfo = window.location.search;
+  const paramaters = new URLSearchParams(windowInfo);
+
+  if (paramaters.has("emailAddress")) {
+    document.getElementById("email").value = paramaters.get("emailAddress");
+  }
+
+  if (paramaters.has("firstName")) {
+    document.getElementById("firstName").value = paramaters.get("firstName");
+  }
+
+  if (paramaters.has("lastName")) {
+    document.getElementById("lastName").value = paramaters.get("lastName");
+  }
+
 
 
   form.addEventListener('submit', e => {
@@ -230,6 +245,7 @@
     if (failed == false && password2.checkValidity() == false) {
       password2.setCustomValidity("");
     }
+
 
     if (!form.checkValidity()) {
       e.preventDefault();

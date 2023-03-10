@@ -57,7 +57,7 @@
         <div class="flex-row border border-white bg-white w-50 text-center offset-3">
             <h3 class="pt-3">Check your options now!</h3>
             <div class="flex-column p-3">
-                <form action="#" method="POST">
+                <form th:action="@{/apply_redirect}" method="POST">
                 <label for="firstName">First Name:</label>
                 <input type="text" class="form-control" placeholder="First Name" name="firstName" id="firstName"/>
                 <label for="lastName">Last Name:</label>
