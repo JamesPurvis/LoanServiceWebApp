@@ -38,4 +38,6 @@ public class Account {
 
     private String personalIdentifier;
 
+    private double maxApprovedAmount;
+
 }

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <title>LoanApp ~ Dashboard</title>
+  <title>LoanApp ~ Request Loan</title>
 
   <style>
     .fix-table-height{
@@ -46,7 +46,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle px-5" data-bs-toggle="dropdown">Loans</a>
+        <a href="#" class="nav-link active dropdown-toggle px-5" data-bs-toggle="dropdown">Loans</a>
         <div class="dropdown-menu">
           <a th:href="@{/request}" class="dropdown-item">Request A Loan</a>
           <a th:href="@{/manage}" class="dropdown-item">Manage Loans</a>
@@ -60,6 +60,30 @@
 </nav>
 
 <div class="container min-vw-100">
+  <div class="container d-flex justify-content-center pt-3">
+    <h1 class="text-center">Request a loan </h1>
+  </div>
+
+  <div class="container d-flex justify-content-center">
+    <p class="fw-light">Use this form to request a loan, get a decision in seconds!</p>
+  </div>
+
+  <div class="container d-flex" style="background-color: rgb(218, 247, 166);">
+    <div class="form-group w-100">
+      <form th:action="@{/request}" method="POST">
+      <label for="annualIncome">Annual Gross Income:</label>
+      <input type="text" class="form-control" id="annualIncome" name="annualIncome" placeholder="Estimated Annual Gross Salary"/>
+      <label for="monthlyExpenses">Estimated Monthly Expenses</label>
+      <input type="text" class="form-control" id="monthlyExpenses" name="monthlyExpenses" placeholder="Estimated Monthly Expenses"/>
+      <label for="rentPayment">Rent/Mortage Payment</label>
+      <input type="text" class="form-control" id="rentPayment" name="rentPayment" placeholder="Rent/mortage payment per month"/>
+      <br>
+      <div class="form-group text-center pb-4">
+      <button type="submit" class="btn btn-dark">Submit</button>
+      </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 <footer style="background-color: rgb(218, 247, 166); margin-top: auto">
