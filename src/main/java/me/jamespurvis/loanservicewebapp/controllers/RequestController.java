@@ -29,22 +29,22 @@ public class RequestController {
     @PostMapping("/request")
 
     public String processLoanRequest(@RequestParam("annualIncome") String annualIncome, @RequestParam("monthlyExpenses") String monthlyExpenses, @RequestParam("rentPayment") String rentPayment) throws Exception {
+
         double monthlyIncome = Double.parseDouble(annualIncome) / 12;
-        double debtToIncome = Double.parseDouble(monthlyExpenses) + Double.parseDouble(rentPayment) / monthlyIncome;
-        double maxPaymentAmount = monthlyIncome * debtToIncome;
-        double maxLoanAmount =  maxPaymentAmount * ((1 - (1 / (1 + 24) ^ 64)) / 24);
+        double debtToIncome = (Double.parseDouble(monthlyExpenses) + Double.parseDouble(rentPayment)) / monthlyIncome * 100;
+        double maxPaymentAmount = monthlyIncome * 0.42;
+        double monthlyInterestRate = 0.21 / 12;
 
-        System.out.println(maxLoanAmount);
+        double maxLoanAmount = maxPaymentAmount / (1 - Math.pow(1 + monthlyInterestRate, -72));
 
-        if (maxLoanAmount < 500) {
+        if (maxLoanAmount < 500 || debtToIncome > 43) {
             return "request_denied";
-        }
-        else {
-            System.out.println(maxLoanAmount);
-            UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
-            Optional<Account> accountOptional = accountService.findByEmail(details.getUsername());
-            accountOptional.get().setMaxApprovedAmount(maxPaymentAmount);
-            accountService.save(accountOptional.get());
+        } else {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Optional<Account> optionalAccount = accountService.findByEmail(userDetails.getUsername());
+            Account account = optionalAccount.get();
+            account.setMaxApprovedAmount(maxLoanAmount);
+            accountService.save(account);
             return "request_approved";
         }
     }
