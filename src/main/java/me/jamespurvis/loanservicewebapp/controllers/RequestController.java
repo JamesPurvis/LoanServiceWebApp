@@ -2,17 +2,20 @@ package me.jamespurvis.loanservicewebapp.controllers;
 
 
 import me.jamespurvis.loanservicewebapp.models.Account;
+import me.jamespurvis.loanservicewebapp.models.Loan;
 import me.jamespurvis.loanservicewebapp.services.AccountService;
+import me.jamespurvis.loanservicewebapp.services.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -21,8 +24,12 @@ public class RequestController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private LoanService loanService;
+
     @GetMapping("/request")
     public String showRequestPage() {
+        
         return "request";
     }
 
@@ -45,7 +52,42 @@ public class RequestController {
             Account account = optionalAccount.get();
             account.setMaxApprovedAmount(maxLoanAmount);
             accountService.save(account);
-            return "request_approved";
+
+            return "redirect:/request/approved";
         }
+    }
+
+    @GetMapping("/request/approved")
+
+    public String showApprovedPage(Model model) {
+        List<Double> loanAmounts = new ArrayList<>();
+
+        loanAmounts.add(250.00);
+        loanAmounts.add(500.00);
+        loanAmounts.add(750.00);
+        loanAmounts.add(1000.00);
+        loanAmounts.add(1250.00);
+        loanAmounts.add(1500.00);
+        loanAmounts.add(2000.00);
+
+        UserDetails currentSession = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Account> optionalAccount = accountService.findByEmail(currentSession.getUsername());
+        Account account = optionalAccount.get();
+        double maxLoanAmount = account.getMaxApprovedAmount();
+
+        model.addAttribute("loanAmounts", loanAmounts);
+        model.addAttribute("maxLoanAmount", maxLoanAmount);
+
+        return "request_approved";
+    }
+
+    @PostMapping("/request/approved")
+    public String confirmSelection(@ModelAttribute("loan") Loan loan) {
+        UserDetails currentSession = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Account> optionalAccount = accountService.findByEmail(currentSession.getUsername());
+        loan.setAccount(optionalAccount.get());
+        loanService.save(loan);
+
+        return "redirect:/dashboard?loan_success";
     }
 }

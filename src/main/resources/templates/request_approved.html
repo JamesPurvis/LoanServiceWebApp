@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <title>LoanApp ~ Dashboard</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+  <title>LoanApp ~ Approved</title>
 
   <style>
     .fix-table-height{
@@ -46,7 +46,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle px-5" data-bs-toggle="dropdown">Loans</a>
+        <a href="#" class="nav-link active dropdown-toggle px-5" data-bs-toggle="dropdown">Loans</a>
         <div class="dropdown-menu">
           <a th:href="@{/request}" class="dropdown-item">Request A Loan</a>
           <a th:href="@{/manage}" class="dropdown-item">Manage Loans</a>
@@ -59,15 +59,44 @@
   </div>
 </nav>
 
-<div class="container min-vw-100">
-  <div th:if="${param.loan_success != null}" >
-    <div class="container pt-2">
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <p class="text-center">Your loan has been successfully confirmed!</p>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    </div>
+<div class="container min-vw-100" style="padding-left: 0;">
+  <div class="container d-flex justify-content-center pt-3">
+    <h1 class="text-center">Congratulations! You've been approved:</h1>
   </div>
+
+  <div class="container d-flex justify-content-center pb-4">
+    <h1 class="text-center fw-lighter">Please confirm your loan details below</h1>
+  </div>
+
+  <div class="container d-flex min-vw-100 text-white text-center" style="background-color: black">
+    <table class="table-responsive mx-auto">
+      <thead>
+      <form action="#" METHOD="post" th:object="${loan}">
+      <td class="pt-3 pe-5 py-3" th:each="double: ${loanAmounts}">
+        <p class="text-center" th:if="${double} <= ${maxLoanAmount}"><i class="fas fa-money-bill-wave fa-5x"></i>
+        </p>
+        <input th:if="${double} <= ${maxLoanAmount}" class="form-check-input" type="radio" name="loanAmount" id="loanAmount" th:value="${double}">
+      </td>
+      </thead>
+      <tbody>
+      <tr>
+   <td class="pe-5" th:each="double: ${loanAmounts}">
+     <p class="text-center" th:if="${double} <= ${maxLoanAmount}" th:text="${double}">Loan amount</p>
+     </td>
+ </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="container text-center pt-2">
+  <button class="btn btn-dark text-dark" style="background-color: rgb(218, 247, 166);" type="submit">Confirm!</button>
+  </div>
+  </form>
+ <!-- <tr th:each="loan: ${loanAmounts}">
+    <td th:if="${loan} <= ${maxLoanAmount}">
+      <p th:text="${loan}">Loan amount</p>
+      </td:if>
+  </tr> -->
+
 </div>
 
 <footer style="background-color: rgb(218, 247, 166); margin-top: auto">
