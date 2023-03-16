@@ -59,7 +59,7 @@
   </div>
 </nav>
 
-<div class="container min-vw-100">
+<div class="container min-vw-100 ps-0">
   <div th:if="${param.loan_success != null}" >
     <div class="container pt-2">
       <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -68,6 +68,70 @@
       </div>
     </div>
   </div>
+
+  <div class="row pt-3 justify-content-center">
+    <div class="col-5">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-center">Last Payment</h5>
+          <p class="card-text text-center">Your last payment was</p>
+          <div class="container text-center">
+          <a href="#" style="background-color: rgb(218, 247, 166);" class="btn btn-dark text-dark">Make Payment</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="row pt-5 pb-5">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-center">Active Loans</h5>
+            <p class="card-text text-center">You currently have active loans</p>
+            <div class="container text-center">
+              <a href="#" style="background-color: rgb(218, 247, 166);" class="btn btn-dark text-dark">Manage Loans</a>
+            </div>
+          </div>
+        </div>
+        </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-center">Next Payment</h5>
+            <p class="card-text text-center">Your next payment is due on</p>
+            <div class="container text-center">
+              <a href="#" style="background-color: rgb(218, 247, 166);" class="btn btn-dark text-dark">Next Payment</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-center">Total Remaining</h5>
+            <p class="card-text text-center">You currently have a remaining balance of</p>
+            <div class="container text-center">
+              <a href="#" style="background-color: rgb(218, 247, 166);" class="btn btn-dark text-dark">Manage Loans</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="flex-row p-5 min-vw-100" style="background-color: rgb(218, 247, 166);">
+    <div class="container d-flex justify-content-center">
+      <table>
+        <thead>
+        <th colspan="2"><i class="fas fa-user-circle fa-10x offset-2"></i></th>
+        </thead>
+        <tbody>
+        <td><h1 class="fw-bolder">Refer a friend</h1></td>
+        </tbody>
+      </table>
+  </div>
+  </div>
+
 </div>
 
 <footer style="background-color: rgb(218, 247, 166); margin-top: auto">
