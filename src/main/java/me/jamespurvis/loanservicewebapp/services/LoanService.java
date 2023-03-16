@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LoanService {
@@ -36,6 +37,10 @@ public class LoanService {
 
     public int amountofLoans(Account account) {
         return loanRepository.findAllByAccount(account).size();
+    }
+
+    public Optional<Loan> findById(Long id) {
+        return loanRepository.findById(id);
     }
 
     public Loan save(Loan entity) {

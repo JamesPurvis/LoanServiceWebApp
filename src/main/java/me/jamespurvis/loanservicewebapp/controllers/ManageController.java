@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,5 +33,17 @@ public class ManageController {
         List<Loan> loans = loanService.findAllByAccount(current);
         model.addAttribute("loans", loans);
         return "manage";
+    }
+
+    @GetMapping("/manage/loan/{id}")
+    public String showLoanPage(@PathVariable long id, Model model) {
+        Optional<Loan> loan = loanService.findById(id);
+
+        if (loan.isPresent()) {
+            model.addAttribute("loanId", loan.get().getId());
+            return "manage_loan";
+        } else {
+            return "404";
+        }
     }
 }

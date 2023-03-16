@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <title>LoanApp ~ Manage My Loan</title>
+  <link rel="stylesheet" type="text/css" th:href="@{~/css/bootstrap.min.css}">
+  <title>LoanApp ~ Manage Loan</title>
 
   <style>
     .fix-table-height{
@@ -59,33 +59,18 @@
   </div>
 </nav>
 
-<div class="container min-vw-100 ps-0 pe-0">
-  <div class="d-flex justify-content-center pt-5">
-  <table class="table-responsive w-100 fix-table-height" style="background-color: rgb(241, 244, 247);">
-    <thead>
-    <th class="p-2">ID</th>
-    <th class="p-2">Loan Amount</th>
-    <th class="p-2">Manage Loan</th>
-    <th class="p-2">Loan Status</th>
-    </thead>
-    <tbody>
-    <tr class="border border-bottom" style="background-color: white;" th:each="loan: ${loans}">
-      <td class="p-2">
-        <p th:text="'ID: ' + ${loan.id}">Loan id</p>
-      </td>
-      <td class="p-2">
-        <p th:text="'$' + ${T(me.jamespurvis.loanservicewebapp.configuration.Utils).formatNumber(loan.loanAmount)}">Loan amount</p>
-      </td>
-      <td class="p-2">
-        <a th:href="@{'/manage/loan/' + ${loan.id}}" class="btn btn-dark">Manage</a>
-      </td>
-      <td class="p-2">
-        <p th:text="${loan.loanStatus}">Loan Status</p>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+<div class="container min-vw-100">
+  <div class="d-flex justify-content-center pt-3">
+    <h1>Manage your loan</h1>
   </div>
+  <div class="d-flex min-vw-100" style="background-color: rgb(218, 247, 166);">
+    <div class="pt-2 container w-50 justify-content-center">
+      <form>
+      <label for="loanId">Loan ID:</label>
+      <input class="form-control" id="loanId" name="loanId" th:value="${loanId}" disabled/>
+    </form>
+    </div>
+</div>
 </div>
 
 <footer style="background-color: rgb(218, 247, 166); margin-top: auto">
