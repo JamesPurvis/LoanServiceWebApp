@@ -74,7 +74,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title text-center">Last Payment</h5>
-          <p class="card-text text-center">Your last payment was</p>
+          <p class="card-text text-center" th:text="'Your last payment was on ' + ${lastPaymentDate}">Your last payment was</p>
           <div class="container text-center">
           <a href="#" style="background-color: rgb(218, 247, 166);" class="btn btn-dark text-dark">Make Payment</a>
         </div>
@@ -88,7 +88,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title text-center">Active Loans</h5>
-            <p class="card-text text-center">You currently have active loans</p>
+            <p th:text="'You currently have ' + ${amountOfLoans} + ' loan(s)'" class="card-text text-center">You currently have active loans</p>
             <div class="container text-center">
               <a href="#" style="background-color: rgb(218, 247, 166);" class="btn btn-dark text-dark">Manage Loans</a>
             </div>
@@ -99,7 +99,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title text-center">Next Payment</h5>
-            <p class="card-text text-center">Your next payment is due on</p>
+            <p th:text="'Your next payment is due on: ' + ${paymentDueDate}" class="card-text text-center">Your next payment is due on</p>
             <div class="container text-center">
               <a href="#" style="background-color: rgb(218, 247, 166);" class="btn btn-dark text-dark">Next Payment</a>
             </div>
@@ -109,8 +109,8 @@
       <div class="col-4">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title text-center">Total Remaining</h5>
-            <p class="card-text text-center">You currently have a remaining balance of</p>
+            <h5 class="card-title text-center">Balance Remaining</h5>
+            <p th:text="'You currently have a balance remaining of ' + '$' + ${T(me.jamespurvis.loanservicewebapp.configuration.Utils).formatNumber(totalBalance)}">Loan amount</p>
             <div class="container text-center">
               <a href="#" style="background-color: rgb(218, 247, 166);" class="btn btn-dark text-dark">Manage Loans</a>
             </div>

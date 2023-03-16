@@ -23,8 +23,12 @@ public class Loan {
 
     private double loanAmount;
 
+    private String loanStatus;
+
     @NotNull
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
     private Account account;
+
+
 }

@@ -73,15 +73,15 @@
       <thead>
       <form action="#" METHOD="post" th:object="${loan}">
       <td class="pt-3 pe-5 py-3" th:each="double: ${loanAmounts}">
-        <p class="text-center" th:if="${double} <= ${maxLoanAmount}"><i class="fas fa-money-bill-wave fa-5x"></i>
+        <p class="text-center" th:if="${double} + ${totalOwed} <= ${maxLoanAmount}"><i class="fas fa-money-bill-wave fa-5x"></i>
         </p>
-        <input th:if="${double} <= ${maxLoanAmount}" class="form-check-input" type="radio" name="loanAmount" id="loanAmount" th:value="${double}">
+        <input th:if="${double} + ${totalOwed} <= ${maxLoanAmount}" class="form-check-input" type="radio" name="loanAmount" id="loanAmount" th:value="${double}">
       </td>
       </thead>
       <tbody>
       <tr>
    <td class="pe-5" th:each="double: ${loanAmounts}">
-     <p class="text-center" th:if="${double} <= ${maxLoanAmount}" th:text="${T(me.jamespurvis.loanservicewebapp.configuration.Utils).formatNumber(double)}">Loan amount</p>
+     <p class="text-center" th:if="${double} + ${totalOwed} <= ${maxLoanAmount}" th:text="${T(me.jamespurvis.loanservicewebapp.configuration.Utils).formatNumber(double)}">Loan amount</p>
      </td>
  </tr>
       </tbody>

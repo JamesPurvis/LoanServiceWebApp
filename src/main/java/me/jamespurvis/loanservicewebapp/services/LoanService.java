@@ -23,6 +23,21 @@ public class LoanService {
         return loanRepository.findAllByAccount(account);
     }
 
+    public double totalAmountOwed(Account account) {
+        List<Loan> loans = loanRepository.findAllByAccount(account);
+        double totalAmount = 0;
+
+        for(Loan loan : loans) {
+            totalAmount+=loan.getLoanAmount();
+        }
+
+        return totalAmount;
+    }
+
+    public int amountofLoans(Account account) {
+        return loanRepository.findAllByAccount(account).size();
+    }
+
     public Loan save(Loan entity) {
         return loanRepository.save(entity);
     }

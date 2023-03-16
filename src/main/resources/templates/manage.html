@@ -61,7 +61,7 @@
 
 <div class="container min-vw-100 ps-0 pe-0">
   <div class="d-flex justify-content-center pt-5">
-  <table class="table-responsive w-100" style="background-color: rgb(241, 244, 247);">
+  <table class="table-responsive w-100 fix-table-height" style="background-color: rgb(241, 244, 247);">
     <thead>
     <th class="p-2">ID</th>
     <th class="p-2">Loan Amount</th>
@@ -80,7 +80,7 @@
         <a href="#" class="btn btn-dark">Manage</a>
       </td>
       <td class="p-2">
-        <p>Loan status: late</p>
+        <p th:text="${loan.loanStatus}">Loan Status</p>
       </td>
     </tr>
     </tbody>

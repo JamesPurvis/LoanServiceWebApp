@@ -14,7 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +29,7 @@ public class RequestController {
 
     @Autowired
     private LoanService loanService;
+
 
     @GetMapping("/request")
     public String showRequestPage() {
@@ -41,15 +45,16 @@ public class RequestController {
         double debtToIncome = (Double.parseDouble(monthlyExpenses) + Double.parseDouble(rentPayment)) / monthlyIncome * 100;
         double maxPaymentAmount = monthlyIncome * 0.42;
         double monthlyInterestRate = 0.21 / 12;
-
         double maxLoanAmount = maxPaymentAmount / (1 - Math.pow(1 + monthlyInterestRate, -72));
 
-        if (maxLoanAmount < 500 || debtToIncome > 43) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Account> optionalAccount = accountService.findByEmail(userDetails.getUsername());
+        Account account = optionalAccount.get();
+        double amountOwed = loanService.totalAmountOwed(account);
+
+        if (maxLoanAmount < 250 || debtToIncome > 43 || amountOwed + 250 > maxLoanAmount ) {
             return "request_denied";
         } else {
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            Optional<Account> optionalAccount = accountService.findByEmail(userDetails.getUsername());
-            Account account = optionalAccount.get();
             account.setMaxApprovedAmount(maxLoanAmount);
             accountService.save(account);
 
@@ -74,10 +79,11 @@ public class RequestController {
         Optional<Account> optionalAccount = accountService.findByEmail(currentSession.getUsername());
         Account account = optionalAccount.get();
         double maxLoanAmount = account.getMaxApprovedAmount();
+        double totalOwed = loanService.totalAmountOwed(account);
 
         model.addAttribute("loanAmounts", loanAmounts);
         model.addAttribute("maxLoanAmount", maxLoanAmount);
-
+        model.addAttribute("totalOwed", totalOwed);
         return "request_approved";
     }
 
@@ -86,6 +92,8 @@ public class RequestController {
         UserDetails currentSession = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Account> optionalAccount = accountService.findByEmail(currentSession.getUsername());
         loan.setAccount(optionalAccount.get());
+        loan.setLoanStatus("CREATED");
+        optionalAccount.get().setPaymentDueDate(LocalDateTime.now().plusMonths(1).format(DateTimeFormatter.ofPattern("MM-dd-yyyy")).toString());
         loanService.save(loan);
 
         return "redirect:/dashboard?loan_success";

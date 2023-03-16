@@ -40,4 +40,8 @@ public class Account {
 
     private double maxApprovedAmount;
 
+    private String lastPaymentDate;
+
+    private String paymentDueDate;
+
 }
