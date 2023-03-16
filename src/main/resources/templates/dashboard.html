@@ -110,7 +110,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title text-center">Balance Remaining</h5>
-            <p th:text="'You currently have a balance remaining of ' + '$' + ${T(me.jamespurvis.loanservicewebapp.configuration.Utils).formatNumber(totalBalance)}">Loan amount</p>
+            <p class="card-text text-center" th:text="'You remaining balance is ' + '$' + ${T(me.jamespurvis.loanservicewebapp.configuration.Utils).formatNumber(totalBalance)}">Loan amount</p>
             <div class="container text-center">
               <a href="#" style="background-color: rgb(218, 247, 166);" class="btn btn-dark text-dark">Manage Loans</a>
             </div>
