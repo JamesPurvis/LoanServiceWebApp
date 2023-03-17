@@ -93,6 +93,7 @@ public class RequestController {
         Optional<Account> optionalAccount = accountService.findByEmail(currentSession.getUsername());
         loan.setAccount(optionalAccount.get());
         loan.setLoanStatus("CREATED");
+        loan.setPaymentMethod("CREDIT CARD");
         optionalAccount.get().setPaymentDueDate(LocalDateTime.now().plusMonths(1).format(DateTimeFormatter.ofPattern("MM-dd-yyyy")).toString());
         loanService.save(loan);
 

@@ -25,6 +25,8 @@ public class Loan {
 
     private String loanStatus;
 
+    private String paymentMethod;
+
     @NotNull
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)

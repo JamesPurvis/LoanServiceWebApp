@@ -41,6 +41,9 @@ public class ManageController {
 
         if (loan.isPresent()) {
             model.addAttribute("loanId", loan.get().getId());
+            model.addAttribute("remainingBalance", loan.get().getLoanAmount());
+            model.addAttribute("loanStatus", loan.get().getLoanStatus());
+            model.addAttribute("payment", loan.get().getPaymentMethod());
             return "manage_loan";
         } else {
             return "404";
